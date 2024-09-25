@@ -16,7 +16,7 @@ float stopX, stopY, stopWidth, stopHeight;
 //
 void setup()
 {
-  size(900, 800);
+  size(900, 900);
  appWidth = width;
  appHeight = height;
   //variables for any music buttons
@@ -24,7 +24,10 @@ void setup()
   stopHeight = appHeight*1/2;
   stopX = stopWidth - stopWidth*1/2; 
   stopY = stopWidth - stopHeight*1/2; 
-  //
+ if ( stopWidth > stopHeight) {
+ } else {
+ }
+//
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder
   //
   // Load Music

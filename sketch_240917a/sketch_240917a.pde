@@ -15,7 +15,7 @@ int appWidth, appHeight;
 void setup()
 {
   size(1000, 800);
-  size(400, 800);
+  //size(400, 800);
   appWidth = width;
   appHeight = height;
   //Variables for any music button
@@ -91,7 +91,7 @@ void setup()
   String otherside = "otherside";
   //
   //Add Reading into Array
-  String directory = "../../../" + musicPathway;
+  String directory = "../" + musicPathway;
   String file = directory + ariamath + mp3FileName;
   song[currentSong] = minim.loadFile( file );
   file = directory + miceonvenus + mp3FileName;

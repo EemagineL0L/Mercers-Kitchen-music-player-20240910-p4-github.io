@@ -12,6 +12,9 @@ AudioPlayer[] song = new AudioPlayer[numberOfSongs];
 int currentSong = numberOfSongs - numberOfSongs;  //beginning current song as ZERO
 //
 int appWidth, appHeight;
+float musicButtonDIV_X=0.0, musicButtonDIV_Y=0.0, musicButtonDIV_Width=0.0, musicButtonDIV_Height=0.0;
+float musicButtonSquareX=0.0, musicButtonSquareY=0.0, musicButtonSquareWidth=0.0, musicButtonSquareHeight=0.0;
+float stopX=0.0, stopY=0.0, stopWidth=0.0, stopHeight=0.0;
 void setup()
 {
   size(1000, 800);
@@ -36,6 +39,10 @@ void setup()
   println( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height ); 
   println ( musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight );
   println ( padding1 );
+  stopWidth =  musicButtonSquareWidth*1/2;
+  stopHeight = musicButtonSquareHeight;
+  stopX = musicButtonSquareX*1/4;
+  stopY = musicButtonSquareY*1/4;
   //
   //Work out a case Study: Portrait
   /*

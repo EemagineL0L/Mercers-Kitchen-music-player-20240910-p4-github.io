@@ -39,10 +39,10 @@ void setup()
   println( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height ); 
   println ( musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight );
   println ( padding1 );
-  stopWidth =  musicButtonSquareWidth*1/2;
-  stopHeight = musicButtonSquareHeight;
-  stopX = musicButtonSquareX*1/4;
-  stopY = musicButtonSquareY*1/4;
+  stopWidth = musicButtonSquareWidth*1/2;
+  stopHeight = musicButtonSquareHeight*1/2;
+  stopX = musicButtonSquareX + musicButtonSquareWidth*1/4;
+  stopY = musicButtonSquareY + musicButtonSquareHeight*1/4;
   //
   //Work out a case Study: Portrait
   /*
@@ -114,7 +114,6 @@ void setup()
   //Introduce keyPressed as keyboard shortcuts
   //Introduce mousePressed as interaction
   //
-  divs();
 } //End setup
 //
 void draw() {

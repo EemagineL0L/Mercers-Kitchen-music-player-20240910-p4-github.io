@@ -15,6 +15,8 @@ int appWidth, appHeight;
 float musicButtonDIV_X=0.0, musicButtonDIV_Y=0.0, musicButtonDIV_Width=0.0, musicButtonDIV_Height=0.0;
 float musicButtonSquareX=0.0, musicButtonSquareY=0.0, musicButtonSquareWidth=0.0, musicButtonSquareHeight=0.0;
 float stopX=0.0, stopY=0.0, stopWidth=0.0, stopHeight=0.0;
+color pink = #E502AD;
+color blue = #0207E5;
 void setup()
 {
   size(1000, 800);
@@ -36,7 +38,7 @@ void setup()
   float padding2 = padding1*1/2; ////working out value needed, with formulae
   musicButtonSquareX = musicButtonDIV_X + padding2; //note: minus moves it the wrong way, difficult to see
   musicButtonSquareY = musicButtonDIV_Y;
-  println( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height ); 
+  println( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height );
   println ( musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight );
   println ( padding1 );
   stopWidth = musicButtonSquareWidth*1/2;
@@ -47,8 +49,8 @@ void setup()
   //Work out a case Study: Portrait
   /*
   if ( musicButtonDIV_Width >= musicButtonDIV_Height ) { //error: square does not go in the middle
-  //Work out a case Study: 
-  if ( musicButtonDIV_Width >= musicButtonDIV_Height ) { // Landscape //error: square does not go in the middle
+   //Work out a case Study:
+   if ( musicButtonDIV_Width >= musicButtonDIV_Height ) { // Landscape //error: square does not go in the middle
    // musicButtonWidth needs to change
    musicButtonSquareWidth = musicButtonDIV_Height;
    musicButtonSquareHeight = musicButtonDIV_Height;
@@ -134,11 +136,11 @@ void draw() {
   //
   //Hoverover IF - Used in all other buttons too
   if ( mouseX>musicButtonSquareX && mouseX<musicButtonSquareX+musicButtonSquareWidth && mouseY>musicButtonSquareY && mouseY<musicButtonSquareY+musicButtonSquareHeight ) {
-    stopX = yellow;
+    stopX = pink;
   } else {
-    stopY = purple;
+    stopY = blue;
   }
-  fill(stopButtonHoverOver);
+  fill(blue);
   //stroke(); //Colour
   noStroke(); //Colour
   //

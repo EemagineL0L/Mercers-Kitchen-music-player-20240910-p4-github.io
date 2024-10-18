@@ -142,9 +142,9 @@ void draw() {
   }
   fill(blue);
   //stroke(); //Colour
-  noStroke(); //Colour
+  //noStroke(); //Colour
   //
-  rect( stopX, stopY, stopWidth, stopHeight ); //(X, Y, width, height, roundedEdge1, roundedEdge2, roundedEdge3, roundedEdge4, )
+  //rect( stopX, stopY, stopWidth, stopHeight ); //(X, Y, width, height, roundedEdge1, roundedEdge2, roundedEdge3, roundedEdge4, )
   fill(255); //noFill();
   //noStroke();
   stroke(1); //Reset default

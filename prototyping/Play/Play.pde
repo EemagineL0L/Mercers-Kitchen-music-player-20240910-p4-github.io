@@ -173,10 +173,39 @@ void mousePressed() {
 } //End mousePressed
 //
 void keyPressed() {
-  /* Key Board Short Cuts ... learning what the Music Buttons could be
-   Note: CAP Lock with ||
-   if ( key==? || key==? ) ;
-   */
+   if ( key=='L' || key=='l' ) song[currentSong].loop(1); //Loop ONCE
+   if ( key=='K' || key=='K' ) song[currentSong].loop(1); //Loop Infinitely
+   if ( key=='F' || key=='f' ) song[currentSong].skip(10000); // Fast Forward, rewind, & play again //Parameter: milliseconds
+   if ( key=='R' || key=='r' ) song[currentSong].skip(-10000); // Fast Reverse & Play //Parameter: negative numbers
+   if ( key=='M' || key=='m' ) ; // MUTE
+   //
+   if (song[currentSong].ismuted() ) {
+     song[currentSong].unmute();
+  } else {
+  };
+    song[currentSong].mute();
+   if ( key=='O' || key=='o' ) ; // Pause
+   //
+   if (song[currentSong].isplaying() ) {
+    (song[currentSong]
+   if (song[currentSong].isPlaying() ) {
+   //if ( key=='CODED' || keyCode==' ESC' ) ; // QUIT
+   if ( key==' ' || key==' ' ) ; // next 
+   if ( key==' ' || key==' ' ) ; // previous
+   if ( key==' ' || key==' ' ) ; // shuffle - play (random)
+   if ( key==' ' || key==' ' ) ; // play-pause-stop
+
+
+
+
+
+
+
+
+ /* Key Board Short Cuts ... learning what the Music Buttons could be
+  Note: CAP Lock with ||
+  if ( key==? || key==? ) ;
+  */
   if ( key=='P' || key=='p' ) song[currentSong].play(); //Simple Play, no double tap possible
   //
   //if ( key=='P' || key=='p' ) song[currentSong].loop(0); //Simple Play, double tap possible

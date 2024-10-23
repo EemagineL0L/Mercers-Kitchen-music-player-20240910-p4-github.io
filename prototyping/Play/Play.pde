@@ -7,20 +7,29 @@ import ddf.minim.ugens.*;
 //
 //Global Variables
 Minim minim;
-int numberOfSongs = 3; //Able to Autodetect based on Pathway
+int numberOfSongs = 8; //Able to Autodetect based on Pathway
 AudioPlayer[] song = new AudioPlayer[numberOfSongs];
 int currentSong = numberOfSongs - numberOfSongs;  //beginning current song as ZERO
 //
 int appWidth, appHeight;
-float musicButtonDIV_X=0.0, musicButtonDIV_Y=0.0, musicButtonDIV_Width=0.0, musicButtonDIV_Height=0.0;
-float musicButtonSquareX=0.0, musicButtonSquareY=0.0, musicButtonSquareWidth=0.0, musicButtonSquareHeight=0.0;
-float stopX=0.0, stopY=0.0, stopWidth=0.0, stopHeight=0.0;
-color pink = #E502AD;
-color blue = #0207E5;
+//CAUTION: IF Statement Variable Population
+float musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height;
+float musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight;
+float stopX, stopY, stopWidth, stopHeight;
+float playButton1X, playButton1Y, playButton2X, playButton2Y, playButton3X, playButton3Y;
+//
+color pink=#CE30BF, blue=#252FCE, red=#E34F1E, white=#FFFFFF, black=#000000, green=#2DEA2E;
+color dayForeground=pink, dayHoverover=blue, dayBackground=white;
+color darkForeground=pink, darkHoverover=red, darkBackground=black;
+color nightForeground=green, nightHoverover=green, nightBackground=black;
+color appColorForeground, appColorHoverover, appColorBackground;
+color stopButtonHoverOver;
+//
+Boolean colorDarkMode=true; //Preference: true or false //Future: Build Button for Dark Mode Preference
+//
 void setup()
 {
   size(1000, 800);
-  //size(400, 800);
   appWidth = width;
   appHeight = height;
   //Variables for any music button
@@ -31,64 +40,36 @@ void setup()
   //Use if statement to change, introduce ternary operator
   //
   //Population (Variables)
-  //Work out a case Study: Landscape
-  musicButtonSquareWidth = musicButtonDIV_Height;
-  musicButtonSquareHeight = musicButtonDIV_Height;
-  float padding1 = musicButtonDIV_Width - musicButtonDIV_Height; //working out value needed, with formulae
-  float padding2 = padding1*1/2; ////working out value needed, with formulae
-  musicButtonSquareX = musicButtonDIV_X + padding2; //note: minus moves it the wrong way, difficult to see
-  musicButtonSquareY = musicButtonDIV_Y;
-  println( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height );
-  println ( musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight );
-  println ( padding1 );
-  stopWidth = musicButtonSquareWidth*1/2;
+  //Work out a case Study: shorter  side of DIV
+ if ( musicButtonDIV_Width >= musicButtonDIV_Height ) { // Landscape //error: square does not go in the middle
+    // musicButtonWidth needs to change
+    musicButtonSquareWidth = musicButtonDIV_Height ;
+    musicButtonSquareHeight = musicButtonDIV_Height ;
+    float padding1 = musicButtonDIV_Width - musicButtonDIV_Height; //working out value needed, with formulae
+    float padding2 = padding1*1/2; ////working out value needed, with formulae
+    musicButtonSquareX = musicButtonDIV_X + padding2 ; //note: minus moves it the wrong way, difficult to see
+    musicButtonSquareY = musicButtonDIV_Y;
+  } else { //Portrait
+    // musicButtonHeight needs to change
+    musicButtonSquareWidth = musicButtonDIV_Width ;
+    musicButtonSquareHeight = musicButtonDIV_Width;
+    float padding1 = musicButtonDIV_Height - musicButtonDIV_Width; //working out value needed, with formulae
+    float padding2 = padding1*1/2; ////working out value needed, with formulae
+    musicButtonSquareX = musicButtonDIV_X; //note: minus moves it the wrong way, difficult to see
+    musicButtonSquareY = musicButtonDIV_Y + padding2;
+  }
+  //See Case Studies and paper folding
+ stopWidth = musicButtonSquareWidth*1/2;
   stopHeight = musicButtonSquareHeight*1/2;
   stopX = musicButtonSquareX + musicButtonSquareWidth*1/4;
   stopY = musicButtonSquareY + musicButtonSquareHeight*1/4;
-  //
-  //Work out a case Study: Portrait
-  /*
-  if ( musicButtonDIV_Width >= musicButtonDIV_Height ) { //error: square does not go in the middle
-   //Work out a case Study:
-   if ( musicButtonDIV_Width >= musicButtonDIV_Height ) { // Landscape //error: square does not go in the middle
-   // musicButtonWidth needs to change
-   musicButtonSquareWidth = musicButtonDIV_Height;
-   musicButtonSquareHeight = musicButtonDIV_Height;
-   musicButtonSquareX = musicButtonDIV_X + ( ( musicButtonDIV_Width - musicButtonDIV_Height )*1/2 );
-   musicButtonSquareWidth = musicButtonDIV_Height ;
-   musicButtonSquareHeight = musicButtonDIV_Height ;
-   float padding1 = musicButtonDIV_Width - musicButtonDIV_Height; //working out value needed, with formulae
-   float padding2 = padding1*1/2; ////working out value needed, with formulae
-   musicButtonSquareX = musicButtonDIV_X + padding2 ; //note: minus moves it the wrong way, difficult to see
-   musicButtonSquareY = musicButtonDIV_Y;
-   } else {
-   println( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height );
-   println ( musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight );
-   println ( padding1 );
-   } else { //Portrait
-   // musicButtonHeight needs to change
-   musicButtonSquareWidth = musicButtonDIV_Width;
-   musicButtonSquareWidth = musicButtonDIV_Width ;
-   musicButtonSquareHeight = musicButtonDIV_Width;
-   musicButtonSquareX = musicButtonDIV_X;
-   musicButtonSquareY = musicButtonDIV_Y + musicButtonDIV_Width*1/2;
-   float padding1 = musicButtonDIV_Height - musicButtonDIV_Width; //working out value needed, with formulae
-   float padding2 = padding1*1/2; ////working out value needed, with formulae
-   musicButtonSquareX = musicButtonDIV_X; //note: minus moves it the wrong way, difficult to see
-   musicButtonSquareY = musicButtonDIV_Y + padding2;
-   println( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height );
-   println ( musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight );
-   println ( padding1 );
-   }
-   */
-  //float padding = 1.0/4.0;
-  //float stopButtonSize = 1.0-(1.0/4.0);
-  /*
-  stopWidth = musicButtonDIV_Width*stopButtonSize; //stopButtonSize
-   stopHeight = musicButtonDIV_Height*stopButtonSize; //stopButtonSize
-   stopX = musicButtonDIV_X+padding;
-   stopY = musicButtonDIV_Y+padding;
-   */
+  playButton1X = musicButtonSquareX + musicButtonSquareWidth*1/4;
+  playButton1Y  = musicButtonSquareY + musicButtonSquareHeight*1/4;
+  playButton2X = musicButtonSquareX + musicButtonSquareWidth*3/4;
+  playButton2Y = musicButtonSquareY + musicButtonSquareHeight*1/2;
+  playButton3X = musicButtonSquareX + musicButtonSquareWidth*1/4;
+  playButton3Y = musicButtonSquareY + musicButtonSquareHeight*3/4;
+  //playButton1X, playButton1Y, playButton2X, playButton2Y, playButton3X, playButton3Y
   //
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder
   // Load Music
@@ -107,26 +88,53 @@ void setup()
   song[currentSong+=1] = minim.loadFile( file );
   file = directory + otherside + mp3FileName;
   song[currentSong+=1] = minim.loadFile( file );
-  //
+   //
   currentSong = 0;
   //
-  song[currentSong].play();
+  //song[currentSong].play();
   //Use play(timeStart) & loop(numberOfLoops)
   //Purpose is 2D Shapes
   //Introduce keyPressed as keyboard shortcuts
   //Introduce mousePressed as interaction
   //
+  //DIVs
+  //rect() based on variables; variables change with program (introduces parameters of a function and TABS)
+  //rect( X, Y, Width, Height );
+  //rect( musicButtonDIV_X, musicButtonDIV_Y, musicButtonDIV_Width, musicButtonDIV_Height );
+  //
+  println(colorDarkMode);
+  if ( colorDarkMode==false && ( hour()<=7 || hour()>=17 ) ) { //Testing: change 5PM to earlier time, shortcut colorNightMode==true
+    //Night
+    appColorForeground = nightForeground;
+    appColorHoverover = nightHoverover;
+    appColorBackground = nightBackground;
+    println("here1");
+  } else if ( colorDarkMode==false && ( hour()>7 || hour()<17 ) ) {
+    //Day
+    appColorForeground = dayForeground;
+    appColorHoverover = dayHoverover;
+    appColorBackground = dayBackground;
+    println("here2");
+  } else {
+    //Dark Mode
+    appColorForeground = darkForeground;
+    appColorHoverover = darkHoverover;
+    appColorBackground = darkBackground;
+    println("here3");
+  }
+  //
 } //End setup
 //
 void draw() {
-  background(0); //Gray Scale: 0-255, full BLUE Colour
+  background(appColorBackground); //Gray Scale: 0-255, full BLUE Colour
   //
+  //fill() is default
   rect( musicButtonSquareX, musicButtonSquareY, musicButtonSquareWidth, musicButtonSquareHeight );
   //
   /* Note: 3 types of colour, in pairs for hoverover
-   - Day: TBA-foreground | TBA-background (Hoverover)
-   - Dark: TBA-foreground | TBA-background (Hoverover)
-   - Night, no blue: TBA-foreground | TBA-background (Hoverover)
+   - Day, Foreground: #DB05FF | Hoverover: #037EFF | Background: #FFFFFF
+   - Dark, Foreground: #DB05FF | Hoverover: #E9FF00 | Background: #000000
+   - Night, no blue, Foreground: #00FF00 | Hoverover: #E9FF00 | Background: #000000
    - Dark Mode is for all the time, how bright the screen is and eye strain
    - API: when does sunrise, when does sunset, is the system time within those hours
    - Night mode is for all the time or just
@@ -136,17 +144,15 @@ void draw() {
   //
   //Hoverover IF - Used in all other buttons too
   if ( mouseX>musicButtonSquareX && mouseX<musicButtonSquareX+musicButtonSquareWidth && mouseY>musicButtonSquareY && mouseY<musicButtonSquareY+musicButtonSquareHeight ) {
-    stopX = pink;
+    stopButtonHoverOver = appColorHoverover; // See SetUp: Single Line IFs for Day, Dark, and Night Booleans
   } else {
-    stopY = blue;
+    stopButtonHoverOver = appColorForeground; // See SetUp: Single Line IFs for Day, Dark, and Night Booleans
   }
-  fill(blue);
-  //stroke(); //Colour
+  fill(stopButtonHoverOver);
   noStroke(); //Colour
   //
-  rect( stopX, stopY, stopWidth, stopHeight ); //(X, Y, width, height, roundedEdge1, roundedEdge2, roundedEdge3, roundedEdge4, )
-  fill(255); //noFill();
-  //noStroke();
+  triangle(playButton1X, playButton1Y, playButton2X, playButton2Y, playButton3X, playButton3Y);
+  fill(255); //noFill(); //White in Gray Scale
   stroke(1); //Reset default
   //
   //Music Buttons Interactions: cascading IFs can become AND Statements
@@ -161,14 +167,9 @@ void mousePressed() {
   /* STOP Button Mouse Press, after Hoverover
    Must have Hoverover to ensure mouse will activate, visual confirmation of algorithm
    */
-  /* if ( mouseX>musicButtonSquareX && mouseX<musicButtonSquareX+musicButtonSquareWidth && mouseY>musicButtonSquareY && mouseY<musicButtonSquareY+musicButtonSquareHeight ) {
-   if ( song[currentSong].isPlaying() ) {
-   song[currentSong].pause(); //single tap
-   } else {
-   song[currentSong].rewind(); //double tap
-   }
-   }
-   */
+  if ( mouseX>musicButtonSquareX && mouseX<musicButtonSquareX+musicButtonSquareWidth && mouseY>musicButtonSquareY && mouseY<musicButtonSquareY+musicButtonSquareHeight ) {
+    song[currentSong].loop(0); //Simple Play, double tap possible
+  }
   //
 } //End mousePressed
 //
@@ -205,7 +206,8 @@ void keyPressed() {
     //Known ERROR: once song plays, MUTE acts like it doesn't work
     if ( song[currentSong].isMuted() ) {
       //ERROR: song might not be playing
-      //CATCH: ask .isPlaying() or !.isPlaying()song[currentSong].unmute();
+      //CATCH: ask .isPlaying() or !.isPlaying()
+      song[currentSong].unmute();
     } else {
       //Possible ERROR: Might rewind the song
       song[currentSong].mute();
@@ -219,8 +221,8 @@ void keyPressed() {
       song[currentSong].play();
     }
   }
-  if ( key==CODED || keyCode==ESC ) exit();// QUIT
-  if ( key=='Q' || key=='q' ) exit();// QUIT
+  if ( key==CODED || keyCode==ESC ) exit(); // QUIT //UP
+  if ( key=='Q' || key=='q' ) exit(); // QUIT
   //
   //if ( key=='' || key=='' ) ; // NEXT //See .txt for starter hint
   //if ( key=='' || key=='' ) ; // Previous //Students to finish

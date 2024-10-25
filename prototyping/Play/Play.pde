@@ -223,7 +223,6 @@ void keyPressed() {
   }
   if ( key==CODED || keyCode==ESC ) exit(); // QUIT //UP
   if ( key=='Q' || key=='q' ) exit(); // QUIT
-  //
   //if ( key=='' || key=='' ) ; // NEXT //See .txt for starter hint
   //if ( key=='' || key=='' ) ; // Previous //Students to finish
   //

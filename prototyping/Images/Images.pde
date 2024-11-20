@@ -7,7 +7,7 @@ int picBikeWidth, picBikeHeight;
 float bikeX_Changed, bikeY_Changed;
 float picBikeWidthChanged, picBikeHeightChanged;
 //
-void setup() {8b
+void setup() {
   size( 500, 700 ); //Landscape
   appWidth = width;
   appHeight = height;
@@ -17,12 +17,12 @@ void setup() {8b
   backgroundImageY = appHeight*0;
   backgroundImageWidth = appWidth-1;
   backgroundImageHeight = appHeight-1;
-  picBackground = loadImage("../../../../Images/Square/SoccerBall.jpg");
+  picBackground = loadImage("../../Images/Steve_(Minecraft).png");
   bikeX_Changed = bikeX = appWidth * 1/4;
   bikeY_Changed = bikeY = appHeight * 1/4;
   bikeWidth = appWidth * 1/2;
   bikeHeight = appHeight * 1/2;
-  picBike = loadImage("../../../../Images/Landscape/bike.jpg");
+  picBike = loadImage("../../Images/minecraft-diamond-sword-template.png");
   picBikeWidthChanged = picBikeWidth = 860;
   picBikeHeightChanged = picBikeHeight = 529;
   //

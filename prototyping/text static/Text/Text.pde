@@ -58,16 +58,16 @@ void draw()
   //Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
   ink = blue;
   fill(ink);
-  size = 47; //Change the number until it fits
+  size = 50; //Change the number until it fits
   textFont( titleFont, size );
   text( title, titleX, titleY, titleWidth, titleHeight );
   ink = blue;
   fill(ink);
-  size = 43; //Change the number until it fits
+  size = 39; //Change the number until it fits
   textFont( footerFont, size );
   text( footer, footerX, footerY, footerWidth, footerHeight );
   fill(ink);
-  size = 83; //Change the number until it fits
+  size = 75; //Change the number until it fits
   textFont( phraseFont, size );
   text( phrase, superCoolPhraseX, superCoolPhraseY, superCoolPhraseWidth, superCoolPhraseHeight );
 } //End draw

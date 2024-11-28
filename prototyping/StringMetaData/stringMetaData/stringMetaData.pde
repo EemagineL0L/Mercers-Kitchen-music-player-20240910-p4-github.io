@@ -24,11 +24,27 @@ AudioMetaData[] playListTimeRemainingMetaData = new AudioMetaData[numberOfSongs]
 AudioMetaData[] playListTotalTimeMetaData = new AudioMetaData[numberOfSongs]; //might change
 int currentSong = numberOfSongs - numberOfSongs;
 //REview it more meta data needed
-void setup() {} //End setup
+void setup()
 {
  fullScreen();
  appWidth = displayWidth;
  appHeight = displayHeight;
+   // Load Music
+  String musicPathway = "Music/";
+  String mp3FileName = ".mp3";
+  //Alphebetical order, same as OS ordering files
+  String ariamath = "ariamath";
+  String miceonvenus = "miceonvenus";
+  String otherside = "otherside";
+  //
+  //Add Reading into Array
+  String directory = "../" + musicPathway;
+  String file = directory + ariamath + mp3FileName;
+  song[currentSong] = minim.loadFile( file );
+  file = directory + miceonvenus + mp3FileName;
+  song[currentSong+=1] = minim.loadFile( file );
+  file = directory + otherside + mp3FileName;
+  song[currentSong+=1] = minim.loadFile( file );
   //population
   metaDataX1 = appWidth*1/10; // Title
   metaDataY1 = appHeight*4/10;

@@ -40,11 +40,11 @@ void setup()
   //Add Reading into Array
   String directory = "../" + musicPathway;
   String file = directory + ariamath + mp3FileName;
-  song[currentSong] = minim.loadFile( file );
+  playlist[currentSong] = minim.loadFile( file );
   file = directory + miceonvenus + mp3FileName;
-  song[currentSong+=1] = minim.loadFile( file );
+  playlist[currentSong+=1] = minim.loadFile( file );
   file = directory + otherside + mp3FileName;
-  song[currentSong+=1] = minim.loadFile( file );
+  playlist[currentSong+=1] = minim.loadFile( file );
   //population
   metaDataX1 = appWidth*1/10; // Title
   metaDataY1 = appHeight*4/10;

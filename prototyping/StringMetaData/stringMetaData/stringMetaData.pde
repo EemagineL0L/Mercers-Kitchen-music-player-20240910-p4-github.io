@@ -9,14 +9,13 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 //
 //Global Variables
-//
+Minim minim;
+int numberOfSongs = 3;
 int appWidth, appHeight;
 float metaDataX1, metaDataY1, metaDataWidth1, metaDataHeight1;
 float metaDataX2, metaDataY2, metaDataWidth2, metaDataHeight2;
 float metaDataX3, metaDataY3, metaDataWidth3, metaDataHeight3;
 //
-Minim minim;
-int numberOfSongs = 3;
 AudioPlayer[] playlist = new AudioPlayer [numberOfSongs];
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //might change
 AudioMetaData[] playListPostionMetaData = new AudioMetaData[numberOfSongs]; //might change
@@ -29,6 +28,9 @@ void setup()
  fullScreen();
  appWidth = displayWidth;
  appHeight = displayHeight;
+  //
+  minim = new Minim(this); //load from data directory, loadFile should also load from project folder
+   
    // Load Music
   String musicPathway = "Music/";
   String mp3FileName = ".mp3";
@@ -38,7 +40,7 @@ void setup()
   String otherside = "otherside";
   //
   //Add Reading into Array
-  String directory = "../" + musicPathway;
+  String directory = "../../../" + musicPathway;
   String file = directory + ariamath + mp3FileName;
   playlist[currentSong] = minim.loadFile( file );
   file = directory + miceonvenus + mp3FileName;

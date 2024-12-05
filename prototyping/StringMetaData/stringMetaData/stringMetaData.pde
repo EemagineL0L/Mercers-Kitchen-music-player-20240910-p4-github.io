@@ -7,8 +7,8 @@ import ddf.minim.ugens.*;
 //
 //Global Variables
 Minim minim;
-int numberOfSongs = 3; //Able to Autodetect based on Pathway
-AudioPlayer[] playlist = new AudioPlayer[numberOfSongs];
+int numberOfSongs = 8; //Able to Autodetect based on Pathway
+AudioPlayer[] playList = new AudioPlayer[numberOfSongs];
 int currentSong = numberOfSongs - numberOfSongs;  //beginning current song as ZERO
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs];
 //
@@ -17,24 +17,13 @@ float metaDataX1, metaDataY1, metaDataWidth1, metaDataHeight1;
 float metaDataX2, metaDataY2, metaDataWidth2, metaDataHeight2;
 float metaDataX3, metaDataY3, metaDataWidth3, metaDataHeight3;
 PFont titleFont, footerFont, phraseFont;
-color ink, blue=#2952E0, white=#FFFFFF, resetDefaultInk=white; //Not Night Mode Friendly
+color ink, purple=#2C08FF, white=#FFFFFF, resetDefaultInk=white; //Not Night Mode Friendly
 int size;
-String title = "See you", footer="otherside.", phrase="on the ";
+String title = "See you", footer="otherside.", phrase="on the";
 Boolean randomColour=false;
-//
-int timerStart, enteredTimeSeconds, enteredTimeMilliSeconds, currentTime, countingTime, drawIteration=0;
 //
 void setup()
 {
-  //Measuring Effect of FOR, also see draw()
-  //Entered Time from Num Pad
-  enteredTimeSeconds = 5; //CAUTION: will need to convert minutes and hours to seconds
-  enteredTimeMilliSeconds = enteredTimeSeconds * 1000;
-  //Last line in Setup to adjust currentTime in void draw(){}
-  timerStart = millis(); //Measure program start time called "scope"
-  println("Program Start:", timerStart);
-  //
-  //
   fullScreen(); //size(900, 800);
   appWidth = displayWidth; //width
   appHeight = displayHeight; //height
@@ -42,7 +31,9 @@ void setup()
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder
   //
   // Load Music
-String musicPathway = "Music/";
+   minim = new Minim(this); //load from data directory, loadFile should also load from project folder
+  // Load Music
+  String musicPathway = "Music/";
   String mp3FileName = ".mp3";
   //Alphebetical order, same as OS ordering files
   String ariamath = "ariamath";
@@ -50,26 +41,83 @@ String musicPathway = "Music/";
   String otherside = "otherside";
   //
   //Add Reading into Array
-  String directory = "../../../" + musicPathway;
+  String directory = "../" + musicPathway;
   String file = directory + ariamath + mp3FileName;
-  playlist[currentSong] = minim.loadFile( file );
+  song[currentSong] = minim.loadFile( file );
   file = directory + miceonvenus + mp3FileName;
-  playlist[currentSong+=1] = minim.loadFile( file );
+  song[currentSong+=1] = minim.loadFile( file );
   file = directory + otherside + mp3FileName;
-  playlist[currentSong+=1] = minim.loadFile( file );
-    currentSong = 0;
+  song[currentSong+=1] = minim.loadFile( file );
   //
+  //Add Reading into Array
+  String directory = "../../../../" + musicPathway;
+  //println ( currentSong, directory );
+  String file = ""; //NULL String Varaible
+  /*
+  file = directory + groove + mp3FileName;
+   playList[currentSong] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   file = directory + startYourEngines + mp3FileName;
+   playList[currentSong+=1] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   file = directory + beatYourCompetition + mp3FileName;
+   playList[currentSong+=1] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   file = directory + cycles + mp3FileName;
+   playList[currentSong+=1] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   file = directory + eureka + mp3FileName;
+   playList[currentSong+=1] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   file = directory + ghostWalk + mp3FileName;
+   playList[currentSong+=1] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   file = directory + newsroom + mp3FileName;
+   playList[currentSong+=1] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   file = directory + theSimplest + mp3FileName;
+   playList[currentSong+=1] = minim.loadFile( file );
+   //println ( currentSong, file, playList[currentSong] );
+   */
+  //NOTE: How would this be turned into a FOR Loop, students to finish
+  for (int i=0; i<numberOfSongs; i++) {
+    if (i==0) file = directory + groove + mp3FileName;
+    if (i==1) file = directory + startYourEngines + mp3FileName;
+    if (i==2) file = directory + beatYourCompetition + mp3FileName;
+    if (i==3) file = directory + cycles + mp3FileName;
+    if (i==4) file = directory + eureka + mp3FileName;
+    if (i==5) file = directory + ghostWalk + mp3FileName;
+    if (i==6) file = directory + newsroom + mp3FileName;
+    if (i==7) file = directory + theSimplest + mp3FileName;
+    playList[i] = minim.loadFile( file );
+  }
+  //
+  currentSong = 0;
+  //
+  /* NOTE: Lines of code repeating
+   playListMetaData[currentSong] = playList[currentSong].getMetaData(); //reads song meta 1, like song 1, mimicing array notation
+   currentSong++;
+   playListMetaData[currentSong] = playList[currentSong].getMetaData();
+   currentSong++;
+   playListMetaData[currentSong] = playList[currentSong].getMetaData();
+   currentSong++;
+   playListMetaData[currentSong] = playList[currentSong].getMetaData();
+   currentSong++;
+   playListMetaData[currentSong] = playList[currentSong].getMetaData();
+   currentSong++;
+   playListMetaData[currentSong] = playList[currentSong].getMetaData();
+   currentSong++;
+   playListMetaData[currentSong] = playList[currentSong].getMetaData();
+   currentSong++;
+   playListMetaData[currentSong] = playList[currentSong].getMetaData();
+   
    NOTE: Introduce FOR LOOP
    - Known: how many lines of code
    - WHILE is for unknown loop interations
    */
   for (int i=0; i<numberOfSongs; i++) {
-  } playListMetaData[currentSong] = playList[currentSong].getMetaData(); //reads song meta 1, like song 1, mimicing array notation
-   currentSong++;
-   playListMetaData[currentSong] = playList[currentSong].getMetaData();
-   currentSong++;
-   playListMetaData[currentSong] = playList[currentSong].getMetaData();
-  //
+    playListMetaData[i] = playList[i].getMetaData();
+  }
   //
   currentSong = 0;
   //
@@ -105,8 +153,8 @@ String musicPathway = "Music/";
   //String[] fontList = PFont.list(); //To list all fonts available on OS
   //printArray(fontList); //For listing all possible fonts to choose from, then createFont
   // Tools / Create Font / Find Font / Do not press "OK", known bug
-  titleFont = createFont("cambria", 55); //Verify the font exists in Processing.Java
-  footerFont = createFont("Yu Gothic UI Regular", 55);
+  titleFont = createFont("Harrington", 55); //Verify the font exists in Processing.Java
+  footerFont = createFont("Arial", 55);
   phraseFont = createFont("Playbill", 55);
   //
   //
@@ -131,19 +179,6 @@ String musicPathway = "Music/";
 //
 void draw() {
   //
-  //Measuring Time
-  currentTime = millis();
-  countingTime = currentTime - timerStart;
-  drawIteration++;
-  println("Begin", timerStart, "Draw Loop", drawIteration, "Draw", currentTime, enteredTimeMilliSeconds);
-  if ( countingTime >= enteredTimeMilliSeconds ) {
-    println("Timer is Done");
-    exit(); //CAUTION: stops the entire program as a prototype
-    //Instead of exit(), fix the BUG
-    //Use loop() & noLoop() on arrow and char R key interactions
-  }
-  //
-  //
   /*Optical Illusion creating movement
    - screen goes at front of draw(), repeating setup()
    */
@@ -155,34 +190,33 @@ void draw() {
   //Drawing Text: applies to all text
   textAlign(CENTER, CENTER); //Align X&Y, see Processing.org / Reference
   //Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
-  ink = blue;
+  ink = purple;
   fill(ink);
   size = 47; //Change the number until it fits
   textFont( titleFont, size );
-  //text( playListMetaData[currentSong].title(), metaDataX1, metaDataY1, metaDataWidth1, metaDataHeight1 );
   /*Problem: .mp3 does not have the Meta Data Entered
    - must inspect .mp3 properties / details for information
    - what if Drag&Drop thus no inspection
    - metadata=="", then should put something in for the user
    */
   String titleCheck = ( playListMetaData[currentSong].title()!="" ) ? "Title Exists": "Title Does not Exist" ; //Careful with "not ="
-  text( titleCheck, metaDataX1, metaDataY1, metaDataWidth1, metaDataHeight1 ); //playListMetaData[currentSong].title()
+  text( playListMetaData[currentSong].title(), metaDataX1, metaDataY1, metaDataWidth1, metaDataHeight1 );
   fill(ink);
   size = 43; //Change the number until it fits
   textFont( footerFont, size );
   //int timeRemaining = playListMetaData[currentSong].length()/1000; // Needs Updating
-  int timeRemaining = playlist[currentSong].length()/1000 - playlist[currentSong].position()/1000; // Needs Updating
+  int timeRemaining = playListMetaData[currentSong].length()/1000 - playList[currentSong].position()/1000; // Needs Updating
   String concatTimeRemaining = str ( timeRemaining ) + " | " + str ( playListMetaData[currentSong].length()/1000 ) + " Seconds";
   text( concatTimeRemaining, metaDataX3, metaDataY3, metaDataWidth3, metaDataHeight3 ); //Note: str(timeRemaining)
   //NOTE: Students to format Minutes and Seconds
   //
   //Repeating Code, different from Static
-  ink = ( randomColour == true ) ? color( random(0, 256), random(256), random(256) ) : blue ; //Ternary Operator
+  ink = ( randomColour == true ) ? color( random(0, 256), random(256), random(256) ) : purple ; //Ternary Operator
   //
   fill(ink);
   size = 83; //Change the number until it fits
   textFont( phraseFont, size );
-  text( str ( playlist[currentSong].position()/1000 ), metaDataX2, metaDataY2, metaDataWidth2, metaDataHeight2 );
+  text( str ( playList[currentSong].position()/1000 ), metaDataX2, metaDataY2, metaDataWidth2, metaDataHeight2 );
   //
   /*
   fill(resetDefaultInk);
@@ -200,7 +234,7 @@ void mousePressed() {
    Must have Hoverover to ensure mouse will activate, visual confirmation of algorithm
    */
   if ( mouseX>metaDataX1 && mouseX<metaDataX1+metaDataWidth1 && mouseY>metaDataY1 && mouseY<metaDataY1+metaDataHeight1 ) {
-    playlist[currentSong].play(); // .loop(0) ... .play() matches keyPressed
+    playList[currentSong].play(); // .loop(0) ... .play() matches keyPressed
   }
   //
 } //End mousePressed
@@ -217,7 +251,7 @@ void keyPressed() {
    Note: CAP Lock with ||
    if ( key==? || key==? ) ;
    */
-  if ( key=='P' || key=='p' ) playlist[currentSong].play(); //Simple Play, no double tap possible
+  if ( key=='P' || key=='p' ) playList[currentSong].play(); //Simple Play, no double tap possible
   //
   //if ( key=='P' || key=='p' ) song[currentSong].loop(0); //Simple Play, double tap possible
   /* Note: double tap is automatic rewind, no pause
@@ -227,56 +261,56 @@ void keyPressed() {
   //if ( key=='S' || key=='s' ) song[currentSong].pause(); //Simple Stop, no double taps
   //
   if ( key=='S' | key=='s' ) {
-    if ( playlist[currentSong].isPlaying() ) {
-      playlist[currentSong].pause(); //single tap
+    if ( playList[currentSong].isPlaying() ) {
+      playList[currentSong].pause(); //single tap
     } else {
-      playlist[currentSong].rewind(); //double tap
+      playList[currentSong].rewind(); //double tap
     }
   }
-  if ( key=='L' || key=='l' ) playlist[currentSong].loop(1); // Loop ONCE: Plays, then plays again, then stops & rewinds
-  if ( key=='K' || key=='k' ) playlist[currentSong].loop(); // Loop Infinitely //Parameter: BLANK or -1
-  if ( key=='F' || key=='f' ) playlist[currentSong].skip( 10000 ); // Fast Forward, Rewind, & Play Again //Parameter: milliseconds
-  if ( key=='R' || key=='r' ) playlist[currentSong].skip( -10000 ); // Fast Reverse & Play //Parameter: negative numbers
+  if ( key=='L' || key=='l' ) playList[currentSong].loop(1); // Loop ONCE: Plays, then plays again, then stops & rewinds
+  if ( key=='K' || key=='k' ) playList[currentSong].loop(); // Loop Infinitely //Parameter: BLANK or -1
+  if ( key=='F' || key=='f' ) playList[currentSong].skip( 10000 ); // Fast Forward, Rewind, & Play Again //Parameter: milliseconds
+  if ( key=='R' || key=='r' ) playList[currentSong].skip( -10000 ); // Fast Reverse & Play //Parameter: negative numbers
   if ( key=='M' || key=='m' ) { // MUTE
     //
     //MUTE Behaviour: stops electricty to speakers, does not stop file
     //NOTE: MUTE has NO built-in PUASE button, NO built-in rewind button
     //ERROR: if song near end of file, user will not know song is at the end
     //Known ERROR: once song plays, MUTE acts like it doesn't work
-    if ( playlist[currentSong].isMuted() ) {
+    if ( playList[currentSong].isMuted() ) {
       //ERROR: song might not be playing
       //CATCH: ask .isPlaying() or !.isPlaying()
-      playlist[currentSong].unmute();
+      playList[currentSong].unmute();
     } else {
       //Possible ERROR: Might rewind the song
-      playlist[currentSong].mute();
+      playList[currentSong].mute();
     }
   }
   if ( key=='O' || key=='o' ) { // Pause
     //
-    if ( playlist[currentSong].isPlaying() ) {
-      playlist[currentSong].pause();
+    if ( playList[currentSong].isPlaying() ) {
+      playList[currentSong].pause();
     } else {
-      playlist[currentSong].play();
+      playList[currentSong].play();
     }
   }
   if ( key==CODED || keyCode==ESC ) exit(); // QUIT //UP
   if ( key=='Q' || key=='q' ) exit(); // QUIT
   //
   if ( key=='N' || key=='n' ) { // NEXT //See .txt for starter hint
-    if ( playlist[currentSong].isPlaying() ) {
-      playlist[currentSong].pause();
-      playlist[currentSong].rewind();
+    if ( playList[currentSong].isPlaying() ) {
+      playList[currentSong].pause();
+      playList[currentSong].rewind();
       //
       if ( currentSong==numberOfSongs-1 ) {
         currentSong = 0;
       } else {
         currentSong++;
       }
-      playlist[currentSong].play();
+      playList[currentSong].play();
     } else {
       //
-      playlist[currentSong].rewind();
+      playList[currentSong].rewind();
       //
       if ( currentSong==numberOfSongs-1 ) {
         currentSong = 0;

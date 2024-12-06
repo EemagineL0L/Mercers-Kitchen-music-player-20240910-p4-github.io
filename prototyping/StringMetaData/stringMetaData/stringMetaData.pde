@@ -7,7 +7,7 @@ import ddf.minim.ugens.*;
 //
 //Global Variables
 Minim minim;
-int numberOfSongs = 8; //Able to Autodetect based on Pathway
+int numberOfSongs = 3; //Able to Autodetect based on Pathway
 AudioPlayer[] playList = new AudioPlayer[numberOfSongs];
 int currentSong = numberOfSongs - numberOfSongs;  //beginning current song as ZERO
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs];
@@ -41,54 +41,28 @@ void setup()
   String otherside = "otherside";
   //
   //Add Reading into Array
-  String directory = "../" + musicPathway;
+  String directory = "../../../" + musicPathway;
   String file = directory + ariamath + mp3FileName;
-  song[currentSong] = minim.loadFile( file );
+  playList[currentSong] = minim.loadFile( file );
   file = directory + miceonvenus + mp3FileName;
-  song[currentSong+=1] = minim.loadFile( file );
+  playList[currentSong+=1] = minim.loadFile( file );
   file = directory + otherside + mp3FileName;
-  song[currentSong+=1] = minim.loadFile( file );
+  playList[currentSong+=1] = minim.loadFile( file );
   //
   //Add Reading into Array
-  String directory = "../../../../" + musicPathway;
   //println ( currentSong, directory );
-  String file = ""; //NULL String Varaible
-  /*
-  file = directory + groove + mp3FileName;
+  file = directory + ariamath + mp3FileName;
    playList[currentSong] = minim.loadFile( file );
    //println ( currentSong, file, playList[currentSong] );
-   file = directory + startYourEngines + mp3FileName;
+   file = directory + miceonvenus + mp3FileName;
    playList[currentSong+=1] = minim.loadFile( file );
    //println ( currentSong, file, playList[currentSong] );
-   file = directory + beatYourCompetition + mp3FileName;
-   playList[currentSong+=1] = minim.loadFile( file );
-   //println ( currentSong, file, playList[currentSong] );
-   file = directory + cycles + mp3FileName;
-   playList[currentSong+=1] = minim.loadFile( file );
-   //println ( currentSong, file, playList[currentSong] );
-   file = directory + eureka + mp3FileName;
-   playList[currentSong+=1] = minim.loadFile( file );
-   //println ( currentSong, file, playList[currentSong] );
-   file = directory + ghostWalk + mp3FileName;
-   playList[currentSong+=1] = minim.loadFile( file );
-   //println ( currentSong, file, playList[currentSong] );
-   file = directory + newsroom + mp3FileName;
-   playList[currentSong+=1] = minim.loadFile( file );
-   //println ( currentSong, file, playList[currentSong] );
-   file = directory + theSimplest + mp3FileName;
-   playList[currentSong+=1] = minim.loadFile( file );
-   //println ( currentSong, file, playList[currentSong] );
-   */
-  //NOTE: How would this be turned into a FOR Loop, students to finish
-  for (int i=0; i<numberOfSongs; i++) {
-    if (i==0) file = directory + groove + mp3FileName;
-    if (i==1) file = directory + startYourEngines + mp3FileName;
-    if (i==2) file = directory + beatYourCompetition + mp3FileName;
-    if (i==3) file = directory + cycles + mp3FileName;
-    if (i==4) file = directory + eureka + mp3FileName;
-    if (i==5) file = directory + ghostWalk + mp3FileName;
-    if (i==6) file = directory + newsroom + mp3FileName;
-    if (i==7) file = directory + theSimplest + mp3FileName;
+   file = directory + otherside + mp3FileName;
+    for (int i=0; i<numberOfSongs; i++) {
+    if (i==0) file = directory + ariamath + mp3FileName;
+    if (i==1) file = directory + miceonvenus + mp3FileName;
+    if (i==2) file = directory + otherside + mp3FileName;
+   
     playList[i] = minim.loadFile( file );
   }
   //
@@ -100,18 +74,7 @@ void setup()
    playListMetaData[currentSong] = playList[currentSong].getMetaData();
    currentSong++;
    playListMetaData[currentSong] = playList[currentSong].getMetaData();
-   currentSong++;
-   playListMetaData[currentSong] = playList[currentSong].getMetaData();
-   currentSong++;
-   playListMetaData[currentSong] = playList[currentSong].getMetaData();
-   currentSong++;
-   playListMetaData[currentSong] = playList[currentSong].getMetaData();
-   currentSong++;
-   playListMetaData[currentSong] = playList[currentSong].getMetaData();
-   currentSong++;
-   playListMetaData[currentSong] = playList[currentSong].getMetaData();
-   
-   NOTE: Introduce FOR LOOP
+   //
    - Known: how many lines of code
    - WHILE is for unknown loop interations
    */
@@ -199,7 +162,7 @@ void draw() {
    - what if Drag&Drop thus no inspection
    - metadata=="", then should put something in for the user
    */
-  String titleCheck = ( playListMetaData[currentSong].title()!="" ) ? "Title Exists": "Title Does not Exist" ; //Careful with "not ="
+  // = ( playListMetaData[currentSong].title()!="" ) ? "Title Exists": "Title Does not Exist" ; //Careful with "not ="
   text( playListMetaData[currentSong].title(), metaDataX1, metaDataY1, metaDataWidth1, metaDataHeight1 );
   fill(ink);
   size = 43; //Change the number until it fits
